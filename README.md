@@ -28,7 +28,7 @@ configuration files, and more.
 
 # Installation
 
-Install default version:
+Install default version from the [Python Package Index](https://pypi.org/project/qcall/):
 
 ```
 pip install qcall
@@ -92,5 +92,3 @@ call("classifier.fit", x_train, y_train, qcall_context=locals())
 x_test = [[0.1], [0.9]]
 p_test = call("classifier.predict_proba", x_test, qcall_context=locals())
 ```
-
-See also: [tests/test_qcall.py](tests/test_qcall.py).
