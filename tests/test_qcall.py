@@ -77,6 +77,13 @@ def test_call_noncallable():
         call("math.pi")
 
 
+def test_call_args_and_star():
+    with pytest.raises(
+        ValueError, match=r"cannot be specified at the same time"
+    ):
+        call("print", "foo", **{"*": "bar", "flush": True})
+
+
 def test_call_using_context():
     context = {"1": sample_function_1, "2": sample_function_2}
     assert call("1", **{"a": 1, "b": 2, "bar": 4, QCALL_CONTEXT: context}) == {
