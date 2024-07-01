@@ -25,12 +25,12 @@ setup(
     version=read("VERSION"),
     description="A module for dynamically calling Python functions",
     long_description=read("README.md"),
-    long_description_content_type='text/markdown',
+    long_description_content_type="text/markdown",
     author="Andrey Melnikov",
     author_email="andmeln@hotmail.com",
     url="https://github.com/andmeln/qcall/",
     license="Apache License, Version 2.0",
     packages=["qcall"],
     install_requires=read_requirements("requirements.txt"),
-    python_requires='>=3.7'
+    python_requires=">=3.7",
 )
