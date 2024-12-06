@@ -41,7 +41,7 @@ def test_get_parameters():
     )
     assert get_parameters(
         sample_function_1, keyword_args={"a": 1, "b": 2, "foo": 3, "bar": 4}
-    ) == ([1, 2, 3], {"bar": 4})
+    ) == ([1, 2], {"foo": 3, "bar": 4})
     assert get_parameters(
         sample_function_2, keyword_args={"a": 1, "b": 2, "bar": 3}
     ) == ([1, 2], {"bar": 3})

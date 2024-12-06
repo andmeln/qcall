@@ -78,12 +78,29 @@ def _rearrange_parameters(
     """
     args = positional_args or []
     kwargs = keyword_args or {}
+    var_positional = False
+    for param in signature.parameters.values():
+        if (
+            param.name in kwargs and
+            param.kind == inspect.Parameter.VAR_POSITIONAL
+        ):
+            var_positional = True
     for param in signature.parameters.values():
         if param.name not in kwargs:
+            if not var_positional:
+                continue
+            if (
+                param.kind == inspect.Parameter.POSITIONAL_ONLY or
+                param.kind == inspect.Parameter.POSITIONAL_OR_KEYWORD
+            ):
+                args.append(param.default)
             continue
         if (
-            param.kind == inspect.Parameter.POSITIONAL_ONLY
-            or param.kind == inspect.Parameter.POSITIONAL_OR_KEYWORD
+            param.kind == inspect.Parameter.POSITIONAL_ONLY or
+            (
+                param.kind == inspect.Parameter.POSITIONAL_OR_KEYWORD and
+                var_positional
+            )
         ):
             args.append(kwargs.pop(param.name))
         elif param.kind == inspect.Parameter.VAR_POSITIONAL:
