@@ -13,6 +13,10 @@ def sample_function_2(a, *b, foo="bar", **kwargs):
     return {"a": a, "b": b, "foo": foo, "kwargs": kwargs}
 
 
+def sample_function_3(a=1, *b):
+    return {"a": a, "b": b}
+
+
 def test_get_object():
     assert get_object("print") == print
     assert get_object("qcall.get_object") == get_object
@@ -48,6 +52,15 @@ def test_get_parameters():
     assert get_parameters(
         sample_function_2, keyword_args={"a": 1, "b": [2, 3], "bar": 4}
     ) == ([1, 2, 3], {"bar": 4})
+    assert get_parameters(
+        sample_function_3, keyword_args={"a": 0, "b": [2, 3]}
+    ) == ([0, 2, 3], {})
+    assert get_parameters(
+        sample_function_3, keyword_args={"b": [2, 3]}
+    ) == ([1, 2, 3], {})
+    assert get_parameters(
+        sample_function_3, keyword_args={}
+    ) == ([], {})
 
 
 def test_call_print():
